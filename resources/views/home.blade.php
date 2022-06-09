@@ -86,21 +86,26 @@ https://templatemo.com/tm-558-klassy-cafe
                             <!-- <li class=""><a rel="sponsored" href="https://templatemo.com" target="_blank">External URL</a></li> -->
                             <li class="scroll-to-section"><a href="#reservation">Contact Us</a></li>
                             @if (Route::has('login'))
-                            
-                                @auth
-                                    <li><a href="{{ url('/dashboard') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">Dashboard</a>
-                                        @else</li>
-                                    <li><a href="{{ route('login') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">Log in</a></li>
-                                    @if (Route::has('register'))
-                                    <li>
-                                        <a href="{{ route('register') }}"class="ml-4 text-sm text-gray-700 dark:text-gray-500 underline">Register</a>
 
+                                @auth
+                                    <li>
+                                        <x-app-layout>
+
+                                        </x-app-layout>
+                                    @else
                                     </li>
-                                        
+                                    <li><a href="{{ route('login') }}"
+                                            class="text-sm text-gray-700 dark:text-gray-500 underline">Log in</a></li>
+                                    @if (Route::has('register'))
+                                        <li>
+                                            <a href="{{ route('register') }}"
+                                                class="ml-4 text-sm text-gray-700 dark:text-gray-500 underline">Register</a>
+
+                                        </li>
                                     @endif
                                 @endauth
-                            
-                        @endif
+
+                            @endif
                         </ul>
                         <a class='menu-trigger'>
                             <span>Menu</span>
@@ -175,7 +180,8 @@ https://templatemo.com/tm-558-klassy-cafe
                             framework. You can download and feel free to use this website template layout for your
                             restaurant business. You are allowed to use this template for commercial purposes.
                             <br><br>You are NOT allowed to redistribute the template ZIP file on any template donwnload
-                            website. Please contact us for more information.</p>
+                            website. Please contact us for more information.
+                        </p>
                         <div class="row">
                             <div class="col-4">
                                 <img src="assets/images/about-thumb-01.jpg" alt="">
