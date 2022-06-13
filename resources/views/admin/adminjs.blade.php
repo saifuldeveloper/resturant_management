@@ -20,6 +20,9 @@ integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
 integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 <!-- End plugin js for this page -->
 <!-- inject:js -->
 <script src="assets/js/off-canvas.js"></script>
@@ -32,28 +35,44 @@ integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCm
 <script src="assets/js/dashboard.js"></script>
 <!-- End custom js for this page -->
 
-{{-- Delete wairning Alert Start --}}
-<script type="text/javascript">
-    $(function() {
-        $(document).on('click', '#delete', function(e) {
-            e.preventDefault();
-            var link = $(this).attr("href");
-            Swal.fire({
-                    title: 'Are you sure?',
-                    text: "Delete!",
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: 'Yes, delete it!'
-                })
-                .then((result) => {
-                    if (result.isConfirmed) {
-                        window.location.href = link;
-                        Swal.fire('Deleted!', 'Your file has been deleted.', 'success')
-                    }
-                })
-        });
-    });
+{{-- ======== toastr added  ========= --}}
+<script>
+    @if (Session::has('message'))
+        var type = "{{ Session::get('alert-type', 'info') }}"
+        switch (type) {
+            case 'info':
+                toastr.info("{{ Session::get('message') }}");
+                break;
+            case 'success':
+                toastr.success("{{ Session::get('message') }}");
+                break;
+            case 'warning':
+                toastr.warning("{{ Session::get('message') }}");
+                break;
+            case 'error':
+                toastr.error("{{ Session::get('message') }}");
+                break;
+        }
+    @endif
 </script>
-{{-- Delete wairning Alert End --}}
+
+{{-- ======== sweetalert added  ========= --}}
+<script type="text/javascript">
+    function deleteData(id) {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                document.getElementById('delete-form-' + id).submit();
+            }
+        })
+    }
+</script>
+
+{{-- For Enter Button --}}
